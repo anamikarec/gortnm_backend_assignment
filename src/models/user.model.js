@@ -2,8 +2,10 @@ const mongoose=require('mongoose');
 const bcrypt=require('bcrypt');
 
 const userSchema = new mongoose.Schema({
+    name:{type: String, required: true},
     email: {type: String, required: true, unique: true},
-    password: {type: String, required: true, minLength:6}
+    password: {type: String, required: true, minLength:6},
+    img_url:[{type: String, required: true}]
 },{
     timestamps: { created_at: () => Date.now() }
 });

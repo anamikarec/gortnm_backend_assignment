@@ -10,13 +10,11 @@ app.use(express.json());
 
 const {signup , signin} = require('./src/controllers/auth.controller');
 const userController = require('./src/controllers/user.controller');
-const postController = require('./src/controllers/post.controller');
-
-app.post("/signup", signup);
+const upload = require('./src/utils/file-upload')
+app.post("/signup",upload.single("profilePic"), signup);
 app.post("/signin", signin);
 
 app.use("/users", userController);
-app.use("/", postController);
 
 const start = async () => {
     await connect();

@@ -8,13 +8,18 @@ const newToken = (user) => {
 };
 
 const signup = async (req, res) => {
-  // try {
-    const user = await User.create(req.body);
+  try {
+    const user = await User.create({
+      name: req.body.name,
+      email : req.body.email,
+      password : req.body.password,
+      img_url:req.file.path
+    });
     const token = await newToken(user);
     return res.status(201).json({ data: {token} });
-  // } catch (err) {
-  //   return res.status(500).json({status: "failed", message: "Something went wrong"});
-  // }
+  } catch (err) {
+    return res.status(500).json({status: "failed", message: "Something went wrong"});
+  }
 };
 
 //  we will find the user with email that comes in
